@@ -1,0 +1,21 @@
+trigger:
+  branches:
+    include:
+    - '*'
+
+resources:
+  repositories:
+    - repository: UnoTest
+      type: github
+      name: Sk1tzFr3n1k/UnoTest
+      ref: refs/tags/v0.8.0
+      endpoint: github_connection
+      
+stages:
+
+- template:  azure/stages/unotest.yml@unotest
+  parameters:
+    name: 'Build_Solution'
+    solution_filename: 'UnoTest.sln'
+    full_version_number: '$(version_prefix).$(Build.BuildId)'
+    solution_build_enabled: true
